@@ -49,7 +49,7 @@ class ParkingController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->contact = $request->contact;
-        $user->gender = $request->gender;
+        // $user->gender = $request->gender;
         $user->car_type = $request->car_type;
         $user->address = $request->address;
         $user->password = Hash::make($request->password);
