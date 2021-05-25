@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ParkingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,6 @@ Route::get('/', function () {
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
+
+Route::post('/storeparking', [ParkingController::class, 'storeParking']);
