@@ -48,23 +48,32 @@ class ParkingController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
         $user->contact = $request->contact;
+        $user->gender = $request->gender;
         $user->car_type = $request->car_type;
-        $user->roles = $request->roles;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        $user->roles = 'user';
 
         $user->save();
     }
 
     public function storeParking(Request $request)
     {
+        // return 'parkings';
+        $max = ParkingZones::get()->pluck('alotted')->first();
+
+        if(!$max)
+            $max = 1;
+
         $parking = new ParkingZones();
-        $parking->name = $request->name;
+        $parking->name = $request->location;
         $parking->available_space = $request->available_space;
-        $parking->address = $request->address;
+        $parking->available_time = $request->available_time;
+        $parking->postal = $request->postal;
         $parking->lat = $request->lat;
         $parking->lng = $request->lng;
+        $parking->alotted = $max;
 
         $parking->save();
     }
