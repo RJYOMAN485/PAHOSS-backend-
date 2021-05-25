@@ -60,7 +60,7 @@ class ParkingController extends Controller
 
     public function storeParking(Request $request)
     {
-        // return 'parkings';
+        return 'parkings';
         $max = ParkingZones::get()->pluck('alotted')->first();
 
         if(!$max)
