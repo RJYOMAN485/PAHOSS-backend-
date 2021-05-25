@@ -29,8 +29,8 @@ class LoginController extends Controller
             'password' => $request->password,
             'roles' => $request->roles,
             ])){
-            // $request->session()->regenerate();
-            $token = $user->createToken('my-app-token')->plainTextToken;
+            $request->session()->regenerate();
+            // $token = $user->createToken('my-app-token')->plainTextToken;
             return response()->json(Auth::user(), 200);
             // return $user->createToken($request->device_name)->plainTextToken;
             // return $user;
