@@ -8,6 +8,7 @@ use App\Models\ParkingZones;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ParkingController extends Controller
@@ -15,6 +16,36 @@ class ParkingController extends Controller
     public function getClients()
     {
         return User::all();
+    }
+
+    public function cancelBooking(Request $request)
+    {
+        $cancel = Booking::find($request->id);
+        $cancel->status = 'cancelled';
+        $cancel->save();
+
+    }
+
+    public function getUserBookings($id)
+    {
+        // $booking = Booking::where('user_id',$id)->get();
+        // return DB::select('select * from parking_zones');
+
+        $query = DB::select("select * from bookings, parking_zones where bookings.user_id = $id and parking_zones.id = bookings.parking_id");
+
+        return $query;
+    }
+
+    public function getDate()
+    {
+        $date = Carbon::now()->toDateString();
+        return $date;
+    }
+
+    public function getPostal(Request $request)
+    {
+        // return ParkingZones::all();
+        return ParkingZones::where('postal', $request->postal)->get();
     }
 
     public function getBookings()
@@ -63,7 +94,7 @@ class ParkingController extends Controller
         return 'parkings';
         $max = ParkingZones::get()->pluck('alotted')->first();
 
-        if(!$max)
+        if (!$max)
             $max = 1;
 
         $parking = new ParkingZones();
@@ -82,11 +113,12 @@ class ParkingController extends Controller
     {
         $booking = new Booking();
         $booking->user_id = $request->user_id;
+        $booking->parking_id = $request->parking_id;
         $booking->entry_date = $request->entry_date;
         $booking->entry_time = $request->entry_time;
         $booking->exit_date = $request->exit_date;
         $booking->exit_time = $request->exit_time;
-        $booking->car_type = $request->car_type;
+        $booking->amount = $request->amount;
         $booking->status = $request->status;
 
         $booking->save();

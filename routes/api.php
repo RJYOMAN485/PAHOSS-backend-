@@ -25,6 +25,11 @@ Route::get('/parking-zones', [ParkingController::class, 'getParkings']);
 Route::get('/booking/today', [ParkingController::class, 'getTodayBookings']);
 Route::get('/booing/active', [ParkingController::class, 'getActiveBookings']);
 Route::get('/booing/feedback', [ParkingController::class, 'getClientsFeedback']);
+Route::get('/booking/{id}', [ParkingController::class, 'getUserBookings']);
+
+Route::get('/getdate', [ParkingController::class, 'getDate']);
+
+Route::post('/postal', [ParkingController::class, 'getPostal']);
 
 Route::post('/storeuser', [ParkingController::class, 'storeUser']);
 
@@ -33,6 +38,8 @@ Route::post('/storeparking', [ParkingController::class, 'storeParking']);
 Route::post('/storebooking', [ParkingController::class, 'storeBooking']);
 
 Route::post('/storefeedback', [ParkingController::class, 'storeFeedback']);
+
+Route::get('/cancel', [ParkingController::class, 'cancelBooking']);
 
 
 
