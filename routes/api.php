@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ParkingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,12 +23,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/clients', [ParkingController::class, 'getClients']);
 Route::get('/bookings', [ParkingController::class, 'getBookings']);
 Route::get('/parking-zones', [ParkingController::class, 'getParkings']);
+// Route::get('/booking/today', [ParkingController::class, 'getTodayBookings']);
+Route::get('/booking/feedback', [ParkingController::class, 'getClientsFeedback']);
+Route::get('/bookingid/{id}', [ParkingController::class, 'getUserBookings']);
+
+Route::get('/booking/active', [ParkingController::class, 'getActiveBookings']);
 Route::get('/booking/today', [ParkingController::class, 'getTodayBookings']);
-Route::get('/booing/active', [ParkingController::class, 'getActiveBookings']);
-Route::get('/booing/feedback', [ParkingController::class, 'getClientsFeedback']);
-Route::get('/booking/{id}', [ParkingController::class, 'getUserBookings']);
 
 Route::get('/getdate', [ParkingController::class, 'getDate']);
+
+Route::get('/dashboard', [ParkingController::class, 'dashboard']);
+
+Route::get('/test', [ParkingController::class, 'dashboard']);
+
+Route::get('/mail', [ParkingController::class, 'sendMail']);
+
+
 
 Route::post('/postal', [ParkingController::class, 'getPostal']);
 
@@ -39,7 +50,14 @@ Route::post('/storebooking', [ParkingController::class, 'storeBooking']);
 
 Route::post('/storefeedback', [ParkingController::class, 'storeFeedback']);
 
-Route::get('/cancel', [ParkingController::class, 'cancelBooking']);
+Route::post('/cancel', [ParkingController::class, 'cancelBooking']);
+
+Route::post('/user/update', [ParkingController::class, 'updateUser']);
+
+Route::post('/delete-parking', [ParkingController::class, 'deleteParking']);
+
+Route::post('/update-parking', [ParkingController::class, 'updateParking']);
+
 
 
 
