@@ -16,20 +16,28 @@ use Illuminate\Support\Facades\Redis;
 
 class ParkingController extends Controller
 {
+    private $email;
     public function getClients()
     {
-        return User::all();
+        return User::where('roles','user')->get();
     }
 
-    public function sendMail()
+    public function sendMail($email,$book_id)
     {
-        $data = array('book_id' => "123");
+        $data = array('book_id' => $book_id);
+
+        $this->email = $email;
 
         Mail::send(['text' => 'mail'], $data, function ($message) {
-            $message->to('ujjali485@gmail.com', 'Clients')->subject('Slot Booking Successful');
+            $message->to($this->email, 'Clients')->subject('Slot Booking Successful');
             $message->from('pahosscenter@gmail.com', 'Pahoss Aizawl');
         });
         echo "Basic Email Sent. Check your inbox.";
+    }
+
+    public function postMail(Request $request)
+    {
+        $this->sendMail($request->email,$request->book_id);
     }
 
     public function getTodayBookings()
@@ -50,6 +58,12 @@ class ParkingController extends Controller
     {
         $parking = ParkingZones::find($request->id);
         $parking->delete();
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->delete();
     }
 
     public function updateParking(Request $request)
@@ -131,6 +145,20 @@ class ParkingController extends Controller
         // return $active_booking;
     }
 
+    public function feedback(Request $request)
+    {
+        $feedback =  new Feedback();
+        $feedback->user_id = $request->user_id;
+        $feedback->message = $request->message;
+
+        $feedback->save();
+    }
+
+    public function getFeedback()
+    {
+        return DB::select("select users.name,feedback.message from users,feedback where users.id = feedback.user_id");
+    }
+
     public function getUserBookings($id)
     {
 
@@ -197,6 +225,17 @@ class ParkingController extends Controller
         $user->save();
     }
 
+    public function storeAdmin(Request $request)
+    {
+        $admin = new User();
+        $admin->name = $request->name;
+        $admin->password = Hash::make($request->password);
+        $admin->email = $request->email;
+        $admin->roles = 'admin';
+
+        $admin->save();
+    }
+
     public function storeParking(Request $request)
     {
         // return 'parkings';
@@ -236,6 +275,8 @@ class ParkingController extends Controller
         $booking->status = $request->status;
 
         $booking->save();
+
+        $this->sendMail($request->email,$book_id);
     }
 
     public function storeFeedback(Request $request)

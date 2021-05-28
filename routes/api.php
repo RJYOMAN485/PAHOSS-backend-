@@ -39,10 +39,19 @@ Route::get('/test', [ParkingController::class, 'dashboard']);
 Route::get('/mail', [ParkingController::class, 'sendMail']);
 
 
+Route::post('/postmail', [ParkingController::class, 'postMail']);
+
+Route::get('/feedbacks', [ParkingController::class, 'getFeedback']);
+
+
+
 
 Route::post('/postal', [ParkingController::class, 'getPostal']);
 
 Route::post('/storeuser', [ParkingController::class, 'storeUser']);
+
+Route::post('/storeadmin', [ParkingController::class, 'storeAdmin']);
+
 
 Route::post('/storeparking', [ParkingController::class, 'storeParking']);
 
@@ -54,9 +63,15 @@ Route::post('/cancel', [ParkingController::class, 'cancelBooking']);
 
 Route::post('/user/update', [ParkingController::class, 'updateUser']);
 
+Route::post('/user/delete', [ParkingController::class, 'deleteUser']);
+
+
 Route::post('/delete-parking', [ParkingController::class, 'deleteParking']);
 
 Route::post('/update-parking', [ParkingController::class, 'updateParking']);
+
+Route::post('/feedback', [ParkingController::class, 'feedback']);
+
 
 
 
