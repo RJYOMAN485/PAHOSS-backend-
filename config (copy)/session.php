@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'connection' => 'sync',
+    'connection' => env('SESSION_CONNECTION', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => '127.0.0.1',
+    'domain' => env('SESSION_DOMAIN', null),
 
     // 'domain' => '.domain.com',
 
@@ -170,7 +170,7 @@ return [
     |
     */
 
-    'secure' => false,
+    'secure' => env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------

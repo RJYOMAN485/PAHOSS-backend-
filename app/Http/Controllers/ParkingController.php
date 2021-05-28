@@ -17,12 +17,22 @@ use Illuminate\Support\Facades\Redis;
 class ParkingController extends Controller
 {
     private $email;
+
+    public function __construct()
+    {
+        Booking::where('exit_date', Carbon::now()->toDateString())
+            ->where([
+                ['exit_time', '=', date('H:i')],
+                ['status', '=', 'active']
+            ])
+            ->update(['status' => 'released']);
+    }
     public function getClients()
     {
-        return User::where('roles','user')->get();
+        return User::where('roles', 'user')->get();
     }
 
-    public function sendMail($email,$book_id)
+    public function sendMail($email, $book_id)
     {
         $data = array('book_id' => $book_id);
 
@@ -37,7 +47,7 @@ class ParkingController extends Controller
 
     public function postMail(Request $request)
     {
-        $this->sendMail($request->email,$request->book_id);
+        $this->sendMail($request->email, $request->book_id);
     }
 
     public function getTodayBookings()
@@ -75,10 +85,8 @@ class ParkingController extends Controller
         $parking->available_space = $request->available_space;
         $parking->available_time = $request->available_time;
         $parking->save();
-
-
     }
-    
+
 
     public function updateUser(Request $request)
     {
@@ -154,6 +162,43 @@ class ParkingController extends Controller
         $feedback->save();
     }
 
+    public function check(Request $request)
+    {
+        // return date('H:i');
+
+        $check = Booking::where('exit_date', Carbon::now()->toDateString())
+            ->where([
+                ['exit_time', '=', date('H:i')],
+                ['status', '=', 'active']
+            ])
+            ->update(['status' => 'released']);
+
+
+        return $check;
+
+        // $check->status = ''
+
+
+
+        // return Booking::where([
+        //     'entry_date' => Carbon::now()->toDateString(),
+        //     'exit_time' => '08:56'
+        // ])->get();
+        // $count = ParkingZones::where('id',10)->get()->pluck('available_space')->first();
+
+        // $check = Booking::where([
+        //     'parking_id' => 10,
+        //     'entry_date' => ''
+
+        // ]);
+
+        // return Booking::where('entry_date','2021-05-28')->get();
+
+        // return $count;
+
+        return Booking::where('entry_date', Carbon::now()->toDateString())->get();
+    }
+
     public function getFeedback()
     {
         return DB::select("select users.name,feedback.message from users,feedback where users.id = feedback.user_id");
@@ -162,7 +207,7 @@ class ParkingController extends Controller
     public function getUserBookings($id)
     {
 
-       
+
 
         $query = DB::select("select * from parking_zones,bookings where bookings.user_id = $id and parking_zones.id = bookings.parking_id");
 
@@ -184,7 +229,6 @@ class ParkingController extends Controller
     public function getBookings()
     {
         return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id");
-
     }
 
     public function getParkings()
@@ -201,7 +245,6 @@ class ParkingController extends Controller
     {
         // return 'dsd';
         return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id and bookings.status='active'");
-
     }
 
     public function getClientsFeedback()
@@ -276,7 +319,7 @@ class ParkingController extends Controller
 
         $booking->save();
 
-        $this->sendMail($request->email,$book_id);
+        $this->sendMail($request->email, $book_id+1);
     }
 
     public function storeFeedback(Request $request)

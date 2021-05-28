@@ -72,6 +72,13 @@ Route::post('/update-parking', [ParkingController::class, 'updateParking']);
 
 Route::post('/feedback', [ParkingController::class, 'feedback']);
 
+Route::post('/check', [ParkingController::class, 'check']);
+
+
+
+
+
+
 
 
 
