@@ -20,14 +20,16 @@ php artisan migrate
 ### 3. Create .env file in root directory
 ### 4. Copy .env-example to .env file
 ### 5. Import Credentials (required for admin login)
+
+```bash
 php artisan db:seed --class AdminSeeder
-#
+```
+```bash
 php artisan db:seed --class UserSeeder
-#
+```
+```bash
 php artisan db:seed --class ParkingSeeder
-
-
-
+```
 
 ## If you get an error about an encryption key
 php artisan key:generate
