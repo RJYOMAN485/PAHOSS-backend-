@@ -214,6 +214,11 @@ class ParkingController extends Controller
         return $query;
     }
 
+    public function clearBooking()
+    {
+        return Booking::truncate();
+    }
+
     public function getDate()
     {
         $date = Carbon::now()->toDateString();

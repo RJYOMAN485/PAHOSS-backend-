@@ -43,6 +43,9 @@ Route::post('/postmail', [ParkingController::class, 'postMail']);
 
 Route::get('/feedbacks', [ParkingController::class, 'getFeedback']);
 
+Route::get('/clearbookings', [ParkingController::class, 'clearBooking']);
+
+
 
 
 
