@@ -21,7 +21,9 @@ php artisan migrate
 ### 4. Copy .env-example to .env file
 ### 5. Import Credentials (required for admin login)
 php artisan db:seed --class AdminSeeder
+#
 php artisan db:seed --class UserSeeder
+#
 php artisan db:seed --class ParkingSeeder
 
 
