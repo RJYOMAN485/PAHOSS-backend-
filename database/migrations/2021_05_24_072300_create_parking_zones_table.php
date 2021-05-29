@@ -18,7 +18,19 @@ class CreateParkingZonesTable extends Migration
             $table->string('name');
             $table->string('available_space');
             $table->string('available_time');
-            $table->string('address');
+
+
+
+
+ 
+            // $table->string('pname')->nullable(); //change
+            // $table->string('postal')->nullable();
+            // $table->string('alotted')->nullable();
+            
+
+
+
+            $table->string('address')->nullable();
             $table->string('lat');
             $table->string('lng');
             $table->timestamps();

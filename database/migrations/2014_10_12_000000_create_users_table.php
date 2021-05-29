@@ -20,6 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('contact');
             $table->string('car_type');
             $table->string('roles');
+
+
+            // $table->string('gender');
+            // $table->string('address');
+
+
+
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

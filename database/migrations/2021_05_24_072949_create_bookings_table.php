@@ -18,6 +18,16 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('entry_date');
+
+
+
+            // $table->string('parking_id');
+            // $table->string('car_type')->nullable(); //exist
+            // $table->string('amount');
+
+
+
+
             $table->string('entry_time');
             $table->string('exit_date');
             $table->string('exit_time');
