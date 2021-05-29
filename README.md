@@ -15,11 +15,18 @@ composer install
 ## Run Migrations
 php artisan migrate
 
-## Import Credentials
+## Run Apache server. 
+## Create database name called smart-parking
+
+
+## Import Credentials (required for admin login)
 php artisan db:seed
 
 
 ## If you get an error about an encryption key
 php artisan key:generate
+
+## Make sure your register first
+
 
 
