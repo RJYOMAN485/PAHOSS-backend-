@@ -30,6 +30,8 @@ return [
     |
     | Supported: "smtp", "sendmail", "mailgun", "ses",
     |            "postmark", "log", "array"
+
+     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
     |
     */
 
@@ -38,7 +40,7 @@ return [
             'transport' => 'smtp',
             'host' => 'smtp.googlemail.com',
             'port' => 587,
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' => 'tls',
             'username' => 'pahosscenter@gmail.com',
             'password' => 'pahoss485',
             'timeout' => null,

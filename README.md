@@ -15,12 +15,16 @@ composer install
 ## Run Migrations
 php artisan migrate
 
-## Run Apache server. 
-## Create database name called smart-parking
+## 1. Run Apache server. 
+## 2. Create database name called smart-parking
+## 3. Create .env file in root directory
+## 4. Copy .env-example to .env file
+## 5. Import Credentials (required for admin login)
+php artisan db:seed --class AdminSeeder
+php artisan db:seed --class UserSeeder
+php artisan db:seed --class ParkingSeeder
 
 
-## Import Credentials (required for admin login)
-php artisan db:seed
 
 
 ## If you get an error about an encryption key
