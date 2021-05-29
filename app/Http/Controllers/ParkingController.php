@@ -57,7 +57,7 @@ class ParkingController extends Controller
 
 
         // return DB::select("select * from bookings where DATE(created_at)='$dt'");
-        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id and DATE(bookings.created_at) = '$dt'");
+        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id and DATE(bookings.created_at) = '$dt' order by bookings.created_at desc");
 
         // return DB::select("select * from bookings where convert(date,created_at)=convert(date,getdate())");
 
@@ -209,7 +209,7 @@ class ParkingController extends Controller
 
 
 
-        $query = DB::select("select * from parking_zones,bookings where bookings.user_id = $id and parking_zones.id = bookings.parking_id");
+        $query = DB::select("select bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from parking_zones,bookings where bookings.user_id = $id and parking_zones.id = bookings.parking_id order by bookings.created_at desc");
 
         return $query;
     }
@@ -228,7 +228,7 @@ class ParkingController extends Controller
 
     public function getBookings()
     {
-        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id");
+        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id order by bookings.created_at desc");
     }
 
     public function getParkings()
@@ -244,7 +244,7 @@ class ParkingController extends Controller
     public function getActiveBookings()
     {
         // return 'dsd';
-        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id and bookings.status='active'");
+        return DB::select("select users.name,bookings.id,bookings.entry_date,bookings.entry_time,bookings.exit_date,bookings.exit_time,bookings.amount,bookings.status,parking_zones.pname from users,bookings,parking_zones where bookings.user_id = users.id and bookings.parking_id = parking_zones.id and bookings.status='active' order by bookings.created_at desc");
     }
 
     public function getClientsFeedback()

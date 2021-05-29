@@ -21,9 +21,8 @@ class CreateBookingsTable extends Migration
 
 
 
-            // $table->string('parking_id');
-            // $table->string('car_type')->nullable(); //exist
-            // $table->string('amount');
+            $table->unsignedBigInteger('parking_id');
+            $table->string('amount');
 
 
 
@@ -31,7 +30,7 @@ class CreateBookingsTable extends Migration
             $table->string('entry_time');
             $table->string('exit_date');
             $table->string('exit_time');
-            $table->string('car_type');
+            // $table->string('car_type');
             $table->string('status');
             
             $table->timestamps();

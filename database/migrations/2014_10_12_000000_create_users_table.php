@@ -17,13 +17,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('contact');
-            $table->string('car_type');
+            $table->string('contact')->nullable();
+            $table->string('car_type')->nullable();
             $table->string('roles');
 
 
-            // $table->string('gender');
-            // $table->string('address');
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
 
 
 

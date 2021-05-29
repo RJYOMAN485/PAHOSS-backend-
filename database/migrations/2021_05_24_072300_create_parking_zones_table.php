@@ -15,7 +15,7 @@ class CreateParkingZonesTable extends Migration
     {
         Schema::create('parking_zones', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            // $table->string('name');
             $table->string('available_space');
             $table->string('available_time');
 
@@ -23,9 +23,9 @@ class CreateParkingZonesTable extends Migration
 
 
  
-            // $table->string('pname')->nullable(); //change
-            // $table->string('postal')->nullable();
-            // $table->string('alotted')->nullable();
+            $table->string('pname')->nullable(); //change
+            $table->string('postal')->nullable();
+            $table->string('alotted')->nullable();
             
 
 
