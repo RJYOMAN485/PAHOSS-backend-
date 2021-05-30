@@ -131,7 +131,7 @@ class ParkingController extends Controller
 
         $toal_parkings = ParkingZones::all()->count();
 
-        $recent = DB::select("select * from users,bookings where bookings.user_id = users.id limit 5");
+        $recent = DB::select("select * from users,bookings where bookings.user_id = users.id limit 5 order by bookings.created_at desc");
 
         return response()->json([
             'total_bookings' => $total_bookings,
@@ -165,6 +165,10 @@ class ParkingController extends Controller
     public function check(Request $request)
     {
         // return date('H:i');
+
+        // return Booking::all();
+
+        // return Booking::where('status','active')->get();
 
         $check = Booking::where('exit_date', Carbon::now()->toDateString())
             ->where([
@@ -324,7 +328,7 @@ class ParkingController extends Controller
 
         $booking->save();
 
-        $this->sendMail($request->email, $book_id+1);
+        $this->sendMail($request->email, $book_id + 1);
     }
 
     public function storeFeedback(Request $request)
