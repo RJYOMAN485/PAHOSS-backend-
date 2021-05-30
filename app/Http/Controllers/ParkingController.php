@@ -125,7 +125,7 @@ class ParkingController extends Controller
 
         $active_booking = Booking::where('status', 'active')->count();
 
-        $release_booking = Booking::where('status', 'cancelled')->count();
+        $release_booking = Booking::where('status', '!=', 'active')->count();
 
         $total_clients = User::where('roles', 'user')->count();
 
