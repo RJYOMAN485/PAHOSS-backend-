@@ -131,7 +131,7 @@ class ParkingController extends Controller
 
         $toal_parkings = ParkingZones::all()->count();
 
-        $recent = DB::select("select * from users,bookings where bookings.user_id = users.id limit 5 order by bookings.created_at desc");
+        $recent = DB::select("select * from users,bookings where bookings.user_id = users.id order by bookings.created_at desc limit 5 ");
 
         return response()->json([
             'total_bookings' => $total_bookings,
