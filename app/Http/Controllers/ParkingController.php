@@ -220,7 +220,13 @@ class ParkingController extends Controller
 
     public function clearBooking()
     {
-        return Booking::truncate();
+         Booking::truncate();
+    }
+
+    public function deleteBooking($id)
+    {
+        $book = Booking::find($id);
+        $book->delete();
     }
 
     public function getDate()
