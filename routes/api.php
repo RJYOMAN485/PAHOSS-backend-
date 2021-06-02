@@ -45,6 +45,9 @@ Route::get('/feedbacks', [ParkingController::class, 'getFeedback']);
 
 Route::get('/clearbookings', [ParkingController::class, 'clearBooking']);
 
+Route::get('/clearfeedbacks', [ParkingController::class, 'clearFeedback']);
+
+
 Route::get('/booking/delete/{id}', [ParkingController::class, 'deleteBooking']);
 
 

@@ -223,6 +223,11 @@ class ParkingController extends Controller
          Booking::truncate();
     }
 
+    public function clearFeedback()
+    {
+        Feedback::truncate();
+    }
+
     public function deleteBooking($id)
     {
         $book = Booking::find($id);
