@@ -22,7 +22,7 @@ class ParkingController extends Controller
     {
         Booking::where('exit_date', Carbon::now()->toDateString())
             ->where([
-                ['exit_time', '=', date('H:i')],
+                ['exit_time', '<=', date('H:i')],
                 ['status', '=', 'active']
             ])
             ->update(['status' => 'released']);
@@ -220,6 +220,8 @@ class ParkingController extends Controller
 
     public function clearBooking()
     {
+        // $dt = '15:11';
+        // return date('H:i') > $dt ? 'gt' : 'sm';
          Booking::truncate();
     }
 
